@@ -1,0 +1,96 @@
+﻿@using ModeloNegocio
+@model List<IdeaNegocioModel>
+
+<h2>Lista de Ideas de Negocio</h2>
+<table class="table">
+    <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Impacto social</th>
+        <th>Departamentos beneficiados</th>
+        <th>Valor Inversión</th>
+        <th>Ingresos a 3 Años</th>
+        <th>Herramientas de la 4RI utilizadas</th>
+    </tr>
+    @foreach (var idea in Model)
+    {
+        <tr>
+            <td>@idea.Id.ToString("D3")</td>
+            <td>@idea.NombreIdea</td>
+            <td>@idea.ImpactoSocial</td>
+            <td>
+                @foreach (var departamento in idea.Departamentos)
+                {
+                    <p>@departamento.Id - @departamento.Nombre</p>
+                }
+            </td>
+            <td>@idea.Inversion</td>
+            <td>@idea.Ingresos</td>
+            <td>@idea.Herramientas4RI</td>
+           
+        </tr>
+    }
+</table>
+
+<h2>Equipos de ideas de negocios</h2>
+<table class="table">
+    <tr>
+        <th>idea de negocio</th>
+        <th>nombre equipo</th>
+        <th>Acciones</th>
+    </tr>
+    @foreach (var idea in Model)
+    {
+        <tr>
+            <td>@idea.NombreIdea</td>
+            <td>
+                @foreach (var equipo in idea.Equipos)
+                {
+                    <p>@equipo.Nombre</p>
+                }
+            </td>
+            <td>
+                @if (idea.Equipos.Any())
+                {
+                    <a class="btn btn-primary" href="@Url.Action("EditarEquipo", "Home", new { equipoId = idea.Equipos[0].Id })">Editar</a>
+
+                    foreach (var equipo in idea.Equipos)
+                    {
+                        <a class="btn btn-danger eliminar-equipo" data-equipo-id="@equipo.Id">Eliminar</a>
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    // Serializa el modelo a formato JSON
+    var ideas = @Html.Raw(Json.Encode(Model));
+
+    // Muestra el contenido de la variable "ideas" en la consola
+    console.log("Ideas de Negocio:");
+    console.log(ideas);
+
+
+    $(document).ready(function () {
+        $(".eliminar-equipo").click(function () {
+            var equipoId = $(this).data("equipo-id");
+
+            if (confirm("¿Seguro que deseas eliminar este equipo?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("EliminarEquipo", "Home")",
+                    data: { equipoId: equipoId },
+                    success: function (data) {
+                        
+                        window.location.reload(); 
+                    },
+                    error: function (error) {
+                        alert("Error al eliminar el equipo.");
+                    }
+                });
+            }
+        });
+    });
+</script>

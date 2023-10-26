@@ -1,0 +1,17 @@
+﻿@model List<ModeloNegocio.IdeaNegocioModel>
+
+<h2>Ideas de Negocio relacionadas con "Desarrollo sostenible"</h2>
+
+<table class="table">
+    <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+    </tr>
+    @foreach (var idea in Model)
+    {
+        <tr>
+            <td>@idea.Id.ToString("D3")</td>
+            <td>@idea.NombreIdea</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,27 @@
+﻿@model List<ModeloNegocio.IdeaNegocioModel>
+
+<h2>Las 3 Ideas de Negocio Más Rentables</h2>
+
+<table class="table">
+    <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Impacto social</th>
+        <th>Valor Inversión</th>
+        <th>Ingresos a 3 Años</th>
+        <th>Rentabilidad</th>
+        <th>Herramientas de la 4RI utilizadas</th>
+    </tr>
+    @foreach (var idea in Model)
+    {
+        <tr>
+            <td>@idea.Id.ToString("D3")</td>
+            <td>@idea.NombreIdea</td>
+            <td>@idea.ImpactoSocial</td>
+            <td>@idea.Inversion</td>
+            <td>@idea.Ingresos</td>
+            <td>@(idea.Ingresos - idea.Inversion)</td>
+            <td>@idea.Herramientas4RI</td>
+        </tr>
+    }
+</table>

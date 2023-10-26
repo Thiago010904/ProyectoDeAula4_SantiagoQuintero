@@ -1,0 +1,113 @@
+﻿@model ModeloNegocio.IdeaNegocioModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario de Registro de Ideas de Negocio</title>
+</head>
+<body>
+    <h1>Formulario de Registro de Ideas de Negocio</h1>
+
+    @using (Html.BeginForm("AgregarIdeaNegocio", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombreIdea, "Nombre de la idea de negocio:")
+            @Html.TextBoxFor(model => model.NombreIdea, new { @class = "form-control", required = "required" })
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImpactoSocial, "Impacto social o económico:")
+            @Html.TextBoxFor(model => model.ImpactoSocial, new { @class = "form-control", required = "required" })
+        </div>
+
+        <div class="form-group">
+            <br />
+            <h5>Departamentos que se benefician:</h5>
+            <br />
+            <div id="departamentosContainer"></div>
+            <button type="button" onclick="agregarDepartamento()">Agregar departamento</button>
+            <br />
+        </div>
+
+        <div class="form-group">
+            <br />
+            @Html.LabelFor(model => model.Inversion, "Valor de la inversión:")
+            @Html.TextBoxFor(model => model.Inversion, new { @class = "form-control", required = "required" })
+        </div>
+
+        <div class="form-group">
+            <br />
+            @Html.LabelFor(model => model.Ingresos, "Total de ingresos en los primeros 3 años:")
+            @Html.TextBoxFor(model => model.Ingresos, new { @class = "form-control", required = "required" })
+        </div>
+
+        <div class="form-group">
+            <br />
+            <h5>Integrantes del equipo:</h5>
+            <br />
+            <div id="integrantesContainer"></div>
+
+            <button type="button" onclick="agregarIntegrante()">Agregar integrante</button>
+        </div>
+
+        <div class="form-group">
+            <br />
+            @Html.LabelFor(model => model.Herramientas4RI, "Herramientas de la 4RI utilizadas:")
+            @Html.TextBoxFor(model => model.Herramientas4RI, new { @class = "form-control", required = "required" })
+        </div>
+
+        <br />
+        <button type="submit">Subir idea de negocio</button>
+    }
+
+    <script>
+        function agregarDepartamento() {
+            var container = document.getElementById("departamentosContainer");
+            var departamentoDiv = document.createElement("div");
+            departamentoDiv.className = "departamento";
+
+            departamentoDiv.innerHTML = `
+                                    <label for="Departamentos[${container.childElementCount}].Codigo">Código:</label>
+                                    <input type="number" name="Departamentos[${container.childElementCount}].Codigo" required>
+                                    <label for="Departamentos[${container.childElementCount}].Nombre">Nombre:</label>
+                                    <input type="text" name="Departamentos[${container.childElementCount}].Nombre" required>
+                                    <button type="button" onclick="eliminarElemento(this)">Eliminar</button>
+                                    <hr>
+                                  `;
+
+            container.appendChild(departamentoDiv);
+        }
+
+        function agregarIntegrante() {
+            var container = document.getElementById("integrantesContainer");
+            var integranteDiv = document.createElement("div");
+            integranteDiv.className = "integrante";
+
+            integranteDiv.innerHTML = `
+                                    <label for="Equipos[${container.childElementCount}].Identificacion">Identificación:</label>
+                                    <input type="text" name="Equipos[${container.childElementCount}].Identificacion" required>
+                                    <label for="Equipos[${container.childElementCount}].Nombre">Nombre:</label>
+                                    <input type="text" name="Equipos[${container.childElementCount}].Nombre" required>
+                                    <label for="Equipos[${container.childElementCount}].Apellidos">Apellidos:</label>
+                                    <input type="text" name="Equipos[${container.childElementCount}].Apellidos" required>
+                                    <label for="Equipos[${container.childElementCount}].Rol">Rol:</label>
+                                    <input type="text" name="Equipos[${container.childElementCount}].Rol" required>
+                                    <label for="Equipos[${container.childElementCount}].Email">Email:</label>
+                                    <input type="email" name="Equipos[${container.childElementCount}].Email" required>
+                                    <button type="button" onclick="eliminarElemento(this)">Eliminar</button>
+                                    <hr>
+                                  `;
+
+            container.appendChild(integranteDiv);
+        }
+
+        function eliminarElemento(elemento) {
+            elemento.parentNode.remove();
+        }
+    </script>
+</body>
+</html>

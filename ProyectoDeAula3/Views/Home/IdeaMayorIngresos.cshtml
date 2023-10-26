@@ -1,0 +1,21 @@
+﻿@model ModeloNegocio.IdeaNegocioModel
+
+<h2>Idea de Negocio con Mayor Ingreso en los Primeros 3 Años</h2>
+<table class="table">
+    <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Impacto social</th>
+        <th>Valor Inversión</th>
+        <th>Ingresos a 3 Años</th>
+        <th>Herramientas de la 4RI utilizadas</th>
+    </tr>
+    <tr>
+        <td>@Model.Id.ToString("D3")</td>
+        <td>@Model.NombreIdea</td>
+        <td>@Model.ImpactoSocial</td>
+        <td>@Model.Inversion</td>
+        <td>@Model.Ingresos</td>
+        <td>@Model.Herramientas4RI</td>
+    </tr>
+</table>

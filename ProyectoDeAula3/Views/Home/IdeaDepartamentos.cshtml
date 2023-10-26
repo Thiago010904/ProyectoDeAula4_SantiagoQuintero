@@ -1,0 +1,49 @@
+﻿@model ModeloNegocio.IdeaNegocioModel
+
+<h2>Idea de Negocio con más departamentos</h2>
+<table class="table">
+    <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Impacto social</th>
+        <th>Valor Inversión</th>
+        <th>Ingresos a 3 Años</th>
+        <th>Herramientas de la 4RI utilizadas</th>
+    </tr>
+    <tr>
+        <td>@Model.Id.ToString("D3")</td>
+        <td>@Model.NombreIdea</td>
+        <td>@Model.ImpactoSocial</td>
+        <td>@Model.Inversion</td>
+        <td>@Model.Ingresos</td>
+        <td>@Model.Herramientas4RI</td>
+    </tr>
+</table>
+
+<h3>Departamentos beneficiados</h3>
+<ul>
+    @foreach (var departamentos in Model.Departamentos)
+    {
+        <li>@departamentos.Id - @departamentos.Nombre</li>
+    }
+</ul>
+
+<h3>Integrantes del Equipo</h3>
+<table class="table">
+    <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Rol</th>
+        <th>Email</th>
+    </tr>
+    @foreach (var integrante in Model.Equipos)
+    {
+        <tr>
+            <td>@integrante.Nombre</td>
+            <td>@integrante.Apellidos</td>
+            <td>@integrante.Rol</td>
+            <td>@integrante.Email</td>
+        </tr>
+    }
+</table>
+
